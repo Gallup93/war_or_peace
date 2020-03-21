@@ -18,4 +18,14 @@ class Deck
     high_ranks.compact
   end
 
+  def percent_high_ranking
+    # require "pry"; binding.pry
+
+    percent = ((high_ranking_cards.count.to_f / @cards.count.to_f) * 100)
+    percent.round(2)
+
+
+  end
+
+
 end
