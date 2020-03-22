@@ -19,12 +19,14 @@ class Deck
   end
 
   def percent_high_ranking
-    # require "pry"; binding.pry
 
     percent = ((high_ranking_cards.count.to_f / @cards.count.to_f) * 100)
     percent.round(2)
 
+  end
 
+  def remove_card
+    @cards.shift
   end
 
 
