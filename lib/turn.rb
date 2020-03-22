@@ -1,5 +1,5 @@
 class Turn
-  attr_reader :player1, :player2
+  attr_reader :player1, :player2, :spoils_of_war
 
   def initialize(player1, player2)
     @player1 = player1
@@ -33,7 +33,7 @@ class Turn
         @player2
       end
     else
-      nil
+      "No Winner"
     end
   end
 
@@ -42,6 +42,8 @@ class Turn
     if type == :basic
       @spoils_of_war << @player1.deck.cards[0]
       @spoils_of_war << @player2.deck.cards[0]
+      @player1.deck.cards.shift
+      @player2.deck.cards.shift
     elsif type == :war
       @spoils_of_war << @player1.deck.cards[0]
       @spoils_of_war << @player1.deck.cards[1]
@@ -49,10 +51,26 @@ class Turn
       @spoils_of_war << @player2.deck.cards[0]
       @spoils_of_war << @player2.deck.cards[1]
       @spoils_of_war << @player2.deck.cards[2]
+      @player1.deck.cards.shift(3)
+      @player2.deck.cards.shift(3)
     else
+      @player1.deck.cards.shift(3)
+      @player2.deck.cards.shift(3)
       p "MUTALLY ASSURED DESTRUCTION"
     end
   end
 
+  def award_spoils(winner)
+     # require "pry"; binding.pry
+    if winner == @player1
+      @spoils_of_war.each do |card|
+        @player1.deck.add_card(card)
+      end
+    else
+      @spoils_of_war.each do |card|
+        @player2.deck.add_card(card)
+      end
+    end
+  end
 
 end

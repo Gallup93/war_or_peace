@@ -31,6 +31,8 @@ class TurnTest < Minitest::Test
     assert_instance_of Turn, @turn
     assert_equal @player1, @turn.player1
     assert_equal @player2, @turn.player2
+
+    require "pry"; binding.pry
   end
 
   def test_type
@@ -42,7 +44,11 @@ class TurnTest < Minitest::Test
   end
 
   def test_pile_cards
-    assert_equal [@card1, @card3],@turn.pile_cards
+    assert_equal [@card3],@turn.pile_cards
   end
 
+  def test_award_spoils
+    @turn.pile_cards
+    assert_equal [@card1, @card3],@turn.award_spoils(@turn.winner)
+  end
 end
