@@ -37,5 +37,22 @@ class Turn
     end
   end
 
+  def pile_cards
+    # require "pry"; binding.pry
+    if type == :basic
+      @spoils_of_war << @player1.deck.cards[0]
+      @spoils_of_war << @player2.deck.cards[0]
+    elsif type == :war
+      @spoils_of_war << @player1.deck.cards[0]
+      @spoils_of_war << @player1.deck.cards[1]
+      @spoils_of_war << @player1.deck.cards[2]
+      @spoils_of_war << @player2.deck.cards[0]
+      @spoils_of_war << @player2.deck.cards[1]
+      @spoils_of_war << @player2.deck.cards[2]
+    else
+      p "MUTALLY ASSURED DESTRUCTION"
+    end
+  end
+
 
 end
