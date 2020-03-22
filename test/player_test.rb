@@ -16,4 +16,16 @@ class PlayerTest < Minitest::Test
   def test_initialization
     assert_instance_of Player, @player
   end
+
+  def test_has_lost
+    assert_equal false, @player.has_lost?
+
+    @player.deck.remove_card
+    @player.deck.remove_card
+    assert_equal false, @player.has_lost?
+    @player.deck.remove_card
+    assert_equal true, @player.has_lost?
+
+  end
+
 end

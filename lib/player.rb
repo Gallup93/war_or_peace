@@ -7,4 +7,13 @@ class Player
     @has_lost = false
   end
 
+  def has_lost?
+    # require "pry"; binding.pry
+    if @deck.cards.empty? == true
+      @has_lost = true
+    else
+      @has_lost
+    end
+  end
+
 end
