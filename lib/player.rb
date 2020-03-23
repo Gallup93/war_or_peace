@@ -7,8 +7,8 @@ class Player
     @has_lost = false
   end
 
+  #checks if players deck is empty
   def has_lost?
-    # require "pry"; binding.pry
     if @deck.cards.empty? == true
       @has_lost = true
     else
