@@ -7,6 +7,7 @@ class Turn
     @spoils_of_war = []
   end
 
+  #checks players decks to determine type of round being played
   def type
     if @player1.deck.cards[0].rank != @player2.deck.cards[0].rank
       :basic
@@ -19,14 +20,15 @@ class Turn
     end
   end
 
-  def winner
-    if type == :basic
+  #identifies winner based on type of round
+  def winner(returned_type)
+    if returned_type == :basic
       if @player1.deck.cards[0].rank > @player2.deck.cards[0].rank
         @player1
       else
         @player2
       end
-    elsif type == :war
+    elsif returned_type == :war
       if @player1.deck.cards[2].rank > @player2.deck.cards[2].rank
         @player1
       else
@@ -37,8 +39,9 @@ class Turn
     end
   end
 
+  #removes staked cards from player deck
+  #sends staked cards to spoils_of_war
   def pile_cards
-    # require "pry"; binding.pry
     if type == :basic
       @spoils_of_war << @player1.deck.cards[0]
       @spoils_of_war << @player2.deck.cards[0]
@@ -60,17 +63,21 @@ class Turn
     end
   end
 
+  #sends spoils_of_war to winners deck
+  #clears spoils_of_war for next turn
   def award_spoils(winner)
-     # require "pry"; binding.pry
     if winner == @player1
       @spoils_of_war.each do |card|
         @player1.deck.add_card(card)
       end
-    else
+    elsif winner == @player2
       @spoils_of_war.each do |card|
         @player2.deck.add_card(card)
       end
+    else
+      p "NO WINNER. ALL SPOILS."
     end
+    @spoils_of_war = []
   end
 
 end
