@@ -101,7 +101,8 @@ class Runner
     #print results
     #award staked cards to the winners deck
     #increase turn_number by 1
-    while ((@turn.player1.has_lost? == false && @turn.player2.has_lost? == false) && turn_number <= 1000000) do
+    # require "pry"; binding.pry
+    while ((@turn.player1.has_lost?(false) == false && @turn.player2.has_lost?(false) == false) && turn_number <= 1000000) do
       returned_type = @turn.type
       winner = @turn.winner(returned_type)
       @turn.pile_cards
@@ -125,9 +126,9 @@ class Runner
       p "---FINAL DECK SIZE-------------------------"
       p "---Michael has #{@turn.player1.deck.cards.count} cards in their deck-----------"
       p "---Bug has #{@turn.player2.deck.cards.count} cards in their deck-------------"
-    elsif @turn.player1.has_lost? == true
+    elsif @turn.player1.has_lost?(false) == true
       p "HAIL THE BUG"
-    elsif @turn.player2.has_lost? == true
+    elsif @turn.player2.has_lost?(false) == true
       p "MICHAEL WINS"
     else
       p "Something went wrong :("

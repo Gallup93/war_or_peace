@@ -8,15 +8,25 @@ class Turn
   end
 
   #checks players decks to determine type of round being played
+  #if any deck is < 3, game is killed and that player loses.
   def type
-    if @player1.deck.cards[0].rank != @player2.deck.cards[0].rank
-      :basic
-    elsif
-      (@player1.deck.cards[0].rank == @player2.deck.cards[0].rank) &&
-      (@player1.deck.cards[2].rank == @player2.deck.cards[2].rank)
-      :mutually_assured_destruction
+
+    if (@player1.deck.cards.count < 3 || @player2.deck.cards.count < 3)
+      if @player1.deck.cards.count < 3
+        @player1.has_lost?(true)
+      else
+        @player2.has_lost?(true)
+      end
     else
-      :war
+      if @player1.deck.cards[0].rank != @player2.deck.cards[0].rank
+        :basic
+      elsif
+        (@player1.deck.cards[0].rank == @player2.deck.cards[0].rank) &&
+        (@player1.deck.cards[2].rank == @player2.deck.cards[2].rank)
+        :mutually_assured_destruction
+      else
+        :war
+      end
     end
   end
 
