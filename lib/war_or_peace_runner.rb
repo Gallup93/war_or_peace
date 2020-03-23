@@ -89,4 +89,50 @@ class Runner
     @turn = Turn.new(@player1, @player2)
   end
 
+  #plays the game, printing the result
+  def start
+    #tracks turn number
+    turn_number = 1
+    #while neither players deck is empty, and turn is less than 1,000,000
+    #this goes through the loop of:
+    #idenifty type of round being played
+    #idenifty winner based on round type
+    #pile the cards at stake
+    #print results
+    #award staked cards to the winners deck
+    #increase turn_number by 1
+    while ((@turn.player1.has_lost? == false && @turn.player2.has_lost? == false) && turn_number <= 1000000) do
+      returned_type = @turn.type
+      winner = @turn.winner(returned_type)
+      @turn.pile_cards
+
+        if returned_type == :war
+          p "Turn #{turn_number}: [WAR] #{winner.name} won #{@turn.spoils_of_war.count} cards"
+        elsif returned_type == :basic
+          p "Turn #{turn_number}: #{winner.name} won #{@turn.spoils_of_war.count} cards"
+        else
+          p "Mutually Assured Destruction [YOU M.A.D?]"
+        end
+
+      @turn.award_spoils(winner)
+
+      turn_number += 1
+    end
+
+    #print results of the game
+    if turn_number == 1000001
+      p "-------DRAW--------------------------------"
+      p "---FINAL DECK SIZE-------------------------"
+      p "---Michael has #{@turn.player1.deck.cards.count} cards in their deck-----------"
+      p "---Bug has #{@turn.player2.deck.cards.count} cards in their deck-------------"
+    elsif @turn.player1.has_lost? == true
+      p "HAIL THE BUG"
+    elsif @turn.player2.has_lost? == true
+      p "MICHAEL WINS"
+    else
+      p "Something went wrong :("
+    end
+  end
+
+
 end
