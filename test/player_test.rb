@@ -13,20 +13,20 @@ class PlayerTest < Minitest::Test
     @player = Player.new('Clarisa', deck)
   end
 
-  #tests instance of Player 
+  #tests instance of Player
   def test_initialization
     assert_instance_of Player, @player
   end
 
   #test has_lost method
   def test_has_lost
-    assert_equal false, @player.has_lost?
+    assert_equal false, @player.has_lost?(false)
 
     @player.deck.remove_card
     @player.deck.remove_card
-    assert_equal false, @player.has_lost?
+    assert_equal false, @player.has_lost?(false)
     @player.deck.remove_card
-    assert_equal true, @player.has_lost?
+    assert_equal true, @player.has_lost?(false)
 
   end
 

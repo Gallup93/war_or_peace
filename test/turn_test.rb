@@ -47,12 +47,12 @@ class TurnTest < Minitest::Test
 
   #test pile_cards method
   def test_pile_cards
-    assert_equal [@card3],@turn.pile_cards
+    assert_equal @card3 ,@turn.pile_cards
   end
 
   #test award_spoils method
   def test_award_spoils
     @turn.pile_cards
-    assert_equal [@card1, @card3],@turn.award_spoils(@turn.winner(:basic))
+    assert_equal [], @turn.award_spoils(@turn.winner(:basic))
   end
 end
