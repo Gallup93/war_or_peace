@@ -5,8 +5,9 @@ require './lib/deck'
 require './lib/player'
 require './lib/turn'
 
-class TurnTest < Minitest::Test
 
+class TurnTest < Minitest::Test
+  #sets up instances of Turn
   def setup
     @card1 = Card.new(:heart, 'Jack', 11)
     @card2 = Card.new(:heart, '10', 10)
@@ -26,29 +27,32 @@ class TurnTest < Minitest::Test
     @turn = Turn.new(@player1, @player2)
   end
 
+  #tests instance of Turn and confirms it has players
   def test_initialization
 
     assert_instance_of Turn, @turn
     assert_equal @player1, @turn.player1
     assert_equal @player2, @turn.player2
-
-    require "pry"; binding.pry
   end
 
+  #test type method returns expected type
   def test_type
     assert_equal :basic, @turn.type
   end
 
+  #test winner method
   def test_winner
-    assert_equal @player1, @turn.winner
+    assert_equal @player1, @turn.winner(:basic)
   end
 
+  #test pile_cards method
   def test_pile_cards
     assert_equal [@card3],@turn.pile_cards
   end
 
+  #test award_spoils method
   def test_award_spoils
     @turn.pile_cards
-    assert_equal [@card1, @card3],@turn.award_spoils(@turn.winner)
+    assert_equal [@card1, @card3],@turn.award_spoils(@turn.winner(:basic))
   end
 end
