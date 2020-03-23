@@ -134,5 +134,29 @@ class Runner
     end
   end
 
+  #prints welcome message and waits for player to start game
+  def welcome
+    p "Welcome to War! (or Peace) This game will be played with 52 cards."
+    p "The players today are Michael and Bug."
+    p "Type 'GO' to start the game!"
+    p "------------------------------------"
+
+    #holds user input
+    input = gets.chomp
+    #reads input and either starts game or asks for input again
+    if input.upcase == "GO"
+      start
+    else
+      "Type 'GO' to play"
+      @retry = Runner.new
+      @retry.welcome
+    end
+
+  end
+
+  #initiates welcome message
+  @begin = Runner.new
+  @begin.welcome
+
 
 end
